@@ -1,0 +1,53 @@
+{
+  "Actions": [
+    {
+      "Icon": "Images/icon",
+      "Name": "Super Macro",
+      "States": [
+        {
+          "Image": "Images/bg",
+          "TitleAlignment": "bottom",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Simulates a keyboard and also allows you to choose the delay between each key press (between 1ms to 2000ms).\r\nSupports actions like {{ctrl}{alt}{f1}} or even {{shift}{home}}{{ctrl}{c}} [Select text and copy to clipboard] to create complex macros.\r\nThe customizable delay is great for macros in games that expect a little longer delay between every key press.",
+      "UUID": "com.barraider.supermacro",
+      "PropertyInspectorPath": "PropertyInspector/SuperMacro/Index.html"
+    },
+    {
+      "Icon": "Images/icon",
+      "Name": "Keystroke PTT",
+      "States": [
+        {
+          "Image": "Images/ptt",
+          "TitleAlignment": "bottom",
+          "FontSize": "12"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "Tooltip": "Repeats a keystroke again and again as long as you press the button. Can be either one single character or one set of keystrokes (like {{ctrl}{f5}} to refresh)",
+      "UUID": "com.barraider.keystrokeptt",
+      "PropertyInspectorPath": "PropertyInspector/SuperMacro/KeystrokePTT.html"
+    }
+  ],
+  "Author": "BarRaider",
+  "Description": "Simulates a keyboard and also allows you to choose the delay between each key press (between 1ms to 2000ms).\r\nSupports actions like {{ctrl}{alt}{f1}} or even {{shift}{home}}{{ctrl}{c}} [Select text and copy to clipboard] to create complex macros.\r\nThe customizable delay is great for macros in games that expect a little longer delay between every key press.\r\n*** PRE-RELEASE BETA VERSION***",
+  "Name": "SuperMacro",
+  "Icon": "Images/pluginIcon",
+  "URL": "https://barraider.github.io/",
+  "Version": "0.5",
+  "CodePath": "com.barraider.supermacro",
+  "Category": "BarRaider",
+  "CategoryIcon": "Images/categoryIcon",
+  "OS": [
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "4.1"
+  }
+}
