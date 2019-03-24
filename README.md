@@ -24,21 +24,21 @@ This action limits the action to either one command (such as {{ctrl}{c}}) or one
 SuperMacro knows to deal with both *Commands* and normal text. A command is either one special key (like F5 or Winkey) or a keystroke (like Ctrl-C). A command is always enclosed in {} and each individual key in the command is also inclosed in {} so you should always see two `{{` at the beginning and two `}}` at the end. For instance: `{{f5}}` or `{{ctrl}{c}}`
 
 ### Usage Examples
-1. Open Windows Explorer and got to C:\Program Files
-Note: Delay should be ~20 ms
+1. Open Windows Explorer and got to C:\Program Files  
+Note: Delay should be ~20 ms  
 ```
 {{win}{e}}{{pause400}}{{alt}{d}}c:\Program Files\{{enter}}
 ```
 
-2. Open notepad and play with the settings
-Note: Delay should be ~20 ms
-Note2: This will not work correctly if your Windows (and notepad) are not in English
+2. Open notepad and play with the settings  
+Note: Delay should be ~20 ms  
+Note2: This will not work correctly if your Windows (and notepad) are not in English  
 ```
 {{win}{r}}{{pause500}}notepad.exe{{enter}}{{pause1000}}Ok... Let's see what this plugin can do...{{alt}{f}}{{right}}{{PAUSE400}}{{right}}{{PAUSE400}}f{{pause400}}times{{down}}{{PAUSE400}}{{tab}}{{PAUSE400}}{{down}}{{PAUSE400}}{{down}}{{PAUSE400}}{{ENTER}}{{ENTER}}For more information visit: https://barider.g1thubio{{ctrl}{shift}{left}}{{PAUSE400}}https://barraider.github.io{{ENTER}}{{alt}{o}}f{{PAUSE100}}Lucida Console{{tab}}Regular{{Tab}}12{{ENTER}}
 ```
 
-3. Calculate something
-Note: Delay should be ~20 ms
+3. Calculate something  
+Note: Delay should be ~20 ms  
 ```
 {{win}{r}}{{pause300}}calc{{enter}}1*2*3*4*5=
 ```
