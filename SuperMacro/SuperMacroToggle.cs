@@ -13,8 +13,8 @@ using WindowsInput.Native;
 
 namespace SuperMacro
 {
-    [PluginActionId("com.barraider.supermacro")]
-    public class SuperMacro : SuperMacroBase
+    [PluginActionId("com.barraider.supermacrotoggle")]
+    public class SuperMacroToggle : SuperMacroBase
     {
         private class PluginSettings
         {
@@ -22,6 +22,9 @@ namespace SuperMacro
             {
                 PluginSettings instance = new PluginSettings();
                 instance.InputText = String.Empty; ;
+                instance.SecondaryText = String.Empty;
+                instance.PrimaryImageFilename = String.Empty;
+                instance.SecondaryImageFilename = string.Empty;
                 instance.Delay = 10;
                 instance.EnterMode = false;
 
@@ -31,22 +34,36 @@ namespace SuperMacro
             [JsonProperty(PropertyName = "inputText")]
             public string InputText { get; set; }
 
+            [JsonProperty(PropertyName = "secondaryText")]
+            public string SecondaryText { get; set; }
+
             [JsonProperty(PropertyName = "delay")]
             public int Delay { get; set; }
 
             [JsonProperty(PropertyName = "enterMode")]
             public bool EnterMode { get; set; }
+
+            [FilenameProperty]
+            [JsonProperty(PropertyName = "primaryImage")]
+            public string PrimaryImageFilename { get; set; }
+
+            [FilenameProperty]
+            [JsonProperty(PropertyName = "secondaryImage")]
+            public string SecondaryImageFilename { get; set; }
         }
 
         #region Private members
 
         private PluginSettings settings;
+        string primaryFile = null;
+        string secondaryFile = null;
+        bool isPrimary = false;
 
         #endregion
 
         #region Public Methods
 
-        public SuperMacro(SDConnection connection, InitialPayload payload) : base(connection, payload)
+        public SuperMacroToggle(SDConnection connection, InitialPayload payload) : base(connection, payload)
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
             {
@@ -66,14 +83,39 @@ namespace SuperMacro
             {
                 return;
             }
-            
-            SendInput(settings.InputText, settings.Delay, settings.EnterMode);
+
+            isPrimary = !isPrimary;
+            string text = isPrimary ? settings.InputText : settings.SecondaryText;
+            SendInput(text, settings.Delay, settings.EnterMode);
         }
 
-       
         public override void Dispose()
         {
             Logger.Instance.LogMessage(TracingLevel.INFO, "Destructor called");
+        }
+
+        public async override void OnTick()
+        {
+            string imgBase64;
+            if (isPrimary)
+            {
+                imgBase64 = Properties.Settings.Default.TogglePrimary;
+
+                if (!String.IsNullOrWhiteSpace(primaryFile))
+                {
+                    imgBase64 = primaryFile;
+                }
+                await Connection.SetImageAsync(imgBase64);
+            }
+            else
+            {
+                imgBase64 = Properties.Settings.Default.ToggleSecondary;
+                if (!String.IsNullOrWhiteSpace(secondaryFile))
+                {
+                    imgBase64 = secondaryFile;
+                }
+                await Connection.SetImageAsync(imgBase64);
+            }
         }
 
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
@@ -81,8 +123,21 @@ namespace SuperMacro
             // New in StreamDeck-Tools v2.0:
             Tools.AutoPopulateSettings(settings, payload.Settings);
             Logger.Instance.LogMessage(TracingLevel.INFO, $"Settings loaded: {payload.Settings}");
+            HandleFilenames();
         }
 
         #endregion
+
+        #region Private Methods
+
+        private void HandleFilenames()
+        {
+            primaryFile = Tools.FileToBase64(settings.PrimaryImageFilename, true);
+            secondaryFile = Tools.FileToBase64(settings.SecondaryImageFilename, true);
+            Connection.SetSettingsAsync(JObject.FromObject(settings));
+        }
+
+        #endregion
+
     }
 }

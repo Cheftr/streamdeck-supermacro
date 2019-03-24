@@ -7,7 +7,7 @@
         {
           "Image": "Images/bg",
           "TitleAlignment": "bottom",
-          "FontSize": "12"
+          "FontSize": "10"
         }
       ],
       "SupportedInMultiActions": true,
@@ -17,15 +17,60 @@
     },
     {
       "Icon": "Images/icon",
+      "Name": "Super Macro Toggle",
+      "States": [
+        {
+          "Image": "Images/togglePrimary",
+          "TitleAlignment": "bottom",
+          "FontSize": "10"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Toggle between two different sets of Super Macros.",
+      "UUID": "com.barraider.supermacrotoggle",
+      "PropertyInspectorPath": "PropertyInspector/SuperMacro/Toggle.html"
+    },
+    {
+      "Icon": "Images/icon",
+      "Name": "Sticky Super Macro",
+      "States": [
+        {
+          "Image": "Images/bgRed",
+          "TitleAlignment": "bottom",
+          "FontSize": "10"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Repeats the same macro again and again, until the key is pressed again.",
+      "UUID": "com.barraider.supermacrostickymacro",
+      "PropertyInspectorPath": "PropertyInspector/SuperMacro/StickyMacro.html"
+    },
+    {
+      "Icon": "Images/icon",
+      "Name": "Sticky Keystroke",
+      "States": [
+        {
+          "Image": "Images/bgRed",
+          "TitleAlignment": "bottom",
+          "FontSize": "10"
+        }
+      ],
+      "SupportedInMultiActions": false,
+      "Tooltip": "Repeats the same keystroke again and again, until the key is pressed again. Example of usage is games that don't have an auto-run feature and require a keystroke to run",
+      "UUID": "com.barraider.supermacrostickykeystroke",
+      "PropertyInspectorPath": "PropertyInspector/SuperMacro/StickyKeypress.html"
+    },
+    {
+      "Icon": "Images/icon",
       "Name": "Keystroke PTT",
       "States": [
         {
           "Image": "Images/ptt",
           "TitleAlignment": "bottom",
-          "FontSize": "12"
+          "FontSize": "10"
         }
       ],
-      "SupportedInMultiActions": true,
+      "SupportedInMultiActions": false,
       "Tooltip": "Repeats a keystroke again and again as long as you press the button. Can be either one single character or one set of keystrokes (like {{ctrl}{f5}} to refresh)",
       "UUID": "com.barraider.keystrokeptt",
       "PropertyInspectorPath": "PropertyInspector/SuperMacro/KeystrokePTT.html"
@@ -36,7 +81,7 @@
   "Name": "SuperMacro",
   "Icon": "Images/pluginIcon",
   "URL": "https://barraider.github.io/",
-  "Version": "0.5",
+  "Version": "0.8",
   "CodePath": "com.barraider.supermacro",
   "Category": "BarRaider",
   "CategoryIcon": "Images/categoryIcon",

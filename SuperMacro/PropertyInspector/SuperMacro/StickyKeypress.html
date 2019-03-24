@@ -31,6 +31,22 @@
                 $("#command").trigger("input.hwt");
             });
         </script>
+        <div class="sdpi-item" id="dvKeyImage">
+            <div class="sdpi-item-label">Enabled Image</div>
+            <div class="sdpi-item-group file" id="filepickergroup">
+                <input class="sdpi-item-value sdProperty sdFile" type="file" id="enabledImage" accept=".jpg, .jpeg, .png, .ico, .gif, .bmp, .tiff" oninput="setSettings()">
+                <label class="sdpi-file-info " for="enabledImage" id="enabledImageFilename">No file...</label>
+                <label class="sdpi-file-label" for="enabledImage">Choose file...</label>
+            </div>
+        </div>
+        <div class="sdpi-item" id="dvDisabledImage">
+            <div class="sdpi-item-label">Disabled Image</div>
+            <div class="sdpi-item-group file" id="filepickergroup">
+                <input class="sdpi-item-value sdProperty sdFile" type="file" id="disabledImage" accept=".jpg, .jpeg, .png, .ico, .gif, .bmp, .tiff" oninput="setSettings()">
+                <label class="sdpi-file-info " for="disabledImage" id="disabledImageFilename">No file...</label>
+                <label class="sdpi-file-label" for="disabledImage">Choose file...</label>
+            </div>
+        </div>
     </div>
 </body>
 </html>

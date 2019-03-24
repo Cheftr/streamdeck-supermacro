@@ -19,7 +19,7 @@
             <summary>For feedback/suggestions contact me at <span class="linkspan" onclick="openWebsite()">https://BarRaider.github.io</span> </summary>
         </details>
         <div type="textarea" class="sdpi-item" id="inputText_div">
-            <div class="sdpi-item-label">Macro</div>
+            <div class="sdpi-item-label">Primary Macro</div>
             <span class="sdpi-item-value textarea">
                 <textarea type="textarea" oninput="setSettings()" class="sdProperty" id="inputText"></textarea>
             </span>
@@ -32,6 +32,36 @@
                 $("#inputText").trigger("input.hwt");
             });
         </script>
+        <div class="sdpi-item" id="dvKeyImage">
+            <div class="sdpi-item-label">Primary Image</div>
+            <div class="sdpi-item-group file" id="filepickergroup">
+                <input class="sdpi-item-value sdProperty sdFile" type="file" id="primaryImage" accept=".jpg, .jpeg, .png, .ico, .gif, .bmp, .tiff" oninput="setSettings()">
+                <label class="sdpi-file-info " for="primaryImage" id="primaryImageFilename">No file...</label>
+                <label class="sdpi-file-label" for="primaryImage">Choose file...</label>
+            </div>
+        </div>
+        <div type="textarea" class="sdpi-item" id="inputText_div">
+            <div class="sdpi-item-label">Secondary Macro</div>
+            <span class="sdpi-item-value textarea">
+                <textarea type="textarea" oninput="setSettings()" class="sdProperty" id="secondaryText"></textarea>
+            </span>
+        </div>
+        <script>
+            $('#secondaryText').highlightWithinTextarea({
+                highlight: /\{(\{[^\{\}]+\})+\}/gi
+            });
+            $("#secondaryText").focus(function () {
+                $("#secondaryText").trigger("input.hwt");
+            });
+        </script>
+        <div class="sdpi-item" id="dvSecondaryImage">
+            <div class="sdpi-item-label">Secondary Image</div>
+            <div class="sdpi-item-group file" id="filepickergroup">
+                <input class="sdpi-item-value sdProperty sdFile" type="file" id="secondaryImage" accept=".jpg, .jpeg, .png, .ico, .gif, .bmp, .tiff" oninput="setSettings()">
+                <label class="sdpi-file-info " for="secondaryImage" id="secondaryImageFilename">No file...</label>
+                <label class="sdpi-file-label" for="secondaryImage">Choose file...</label>
+            </div>
+        </div>
         <div type="checkbox" class="sdpi-item" id="RealEnter">
             <div class="sdpi-item-label">Enter key</div>
             <div class="sdpi-item-value">
