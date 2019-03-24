@@ -16,7 +16,7 @@ Click once to enable, the macro will run again and again until the button is pre
 #### Keystroke PTT
 This action limits the action to either one command (such as {{ctrl}{c}}) or one character. The command will be run again and again as long as you continue to press the key.
 
-#### Keystroke Stick
+#### Sticky Keystroke
 This action limits the action to either one command (such as {{ctrl}{c}}) or one character. The command will be run again and again until the button is pressed again.
 
 
