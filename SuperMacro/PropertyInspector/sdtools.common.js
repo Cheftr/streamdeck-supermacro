@@ -1,4 +1,4 @@
-﻿// sdtools.common.js v1.0
+﻿// sdtools.common.js v0.8
 var websocket = null,
     uuid = null,
     registerEventName = null,

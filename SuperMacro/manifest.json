@@ -77,11 +77,11 @@
     }
   ],
   "Author": "BarRaider",
-  "Description": "Simulates a keyboard and also allows you to choose the delay between each key press (between 1ms to 2000ms).\r\nSupports actions like {{ctrl}{alt}{f1}} or even {{shift}{home}}{{ctrl}{c}} [Select text and copy to clipboard] to create complex macros.\r\nThe customizable delay is great for macros in games that expect a little longer delay between every key press.\r\n*** PRE-RELEASE BETA VERSION***",
+  "Description": "Simulates a keyboard and also allows you to choose the delay between each key press (between 1ms to 2000ms).\r\nSupports actions like {{ctrl}{alt}{f1}} or even {{shift}{home}}{{ctrl}{c}} [Select text and copy to clipboard] to create complex macros.\r\nThe customizable delay is great for macros in games that expect a little longer delay between every key press.",
   "Name": "SuperMacro",
   "Icon": "Images/pluginIcon",
   "URL": "https://barraider.github.io/",
-  "Version": "0.8",
+  "Version": "1.0",
   "CodePath": "com.barraider.supermacro",
   "Category": "BarRaider",
   "CategoryIcon": "Images/categoryIcon",
