@@ -32,13 +32,6 @@
                 $("#inputText").trigger("input.hwt");
             });
         </script>
-        <div type="checkbox" class="sdpi-item" id="RealEnter">
-            <div class="sdpi-item-label">Enter key</div>
-            <div class="sdpi-item-value">
-                <input id="enterMode" type="checkbox" value="" class="sdProperty sdCheckbox" oninput="setSettings()">
-                <label for="enterMode" class="sdpi-item-label"><span></span>Secondary ENTER behaviour</label>
-            </div>
-        </div>
         <div type="range" class="sdpi-item" id="delay_div">
             <div class="sdpi-item-label">Delay (ms)</div>
             <div class="sdpi-item-value">
@@ -49,6 +42,21 @@
             <details class="message">
                 <summary><label for="delay" id="delay_label"></label></summary>
             </details>
+        </div>
+        <div type="checkbox" class="sdpi-item" id="dvAdvanced">
+            <div class="sdpi-item-label">Advanced</div>
+            <div class="sdpi-item-value">
+                <input id="enterMode" type="checkbox" value="" class="sdProperty sdCheckbox" oninput="setSettings()">
+                <label for="enterMode" class="sdpi-item-label"><span></span>Secondary ENTER behaviour</label>
+            </div>
+            <div class="sdpi-item-value">
+                <input id="forcedMacro" type="checkbox" value="" class="sdProperty sdCheckbox" oninput="setSettings()">
+                <label for="forcedMacro" class="sdpi-item-label"><span></span>Forced Macro Mode</label>
+            </div>
+            <div class="sdpi-item-value">
+                <input id="keydownDelay" type="checkbox" value="" class="sdProperty sdCheckbox" oninput="setSettings()">
+                <label for="keydownDelay" class="sdpi-item-label"><span></span>Delayed Keydown Mode</label>
+            </div>
         </div>
     </div>
 </body>

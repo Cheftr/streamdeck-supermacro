@@ -59,21 +59,28 @@ namespace SuperMacro
                 }
                 else // KeyStroke
                 {
-                    List<VirtualKeyCode> keyStrokes = CommandTools.ExtractKeyStrokes(settings.Command, true);
+                    List<VirtualKeyCodeContainer> keyStrokes = CommandTools.ExtractKeyStrokes(settings.Command);
 
                     // Actually initiate the keystrokes
                     if (keyStrokes.Count > 0)
                     {
-                        VirtualKeyCode keyCode = keyStrokes.Last();
+                        VirtualKeyCodeContainer keyCode = keyStrokes.Last();
                         keyStrokes.Remove(keyCode);
 
                         if (keyStrokes.Count > 0)
                         {
-                            Task.Run(() => SimulateKeyStroke(keyStrokes.ToArray(), keyCode));
+                            Task.Run(() => SimulateKeyStroke(keyStrokes.Select(ks => ks.KeyCode).ToArray(), keyCode.KeyCode));
                         }
                         else
                         {
-                            Task.Run(() => SimulateKeyDown(keyCode));
+                            if (keyCode.IsExtended)
+                            {
+                                Task.Run(() => ExtendedMacroHandler.HandleExtendedMacro(iis, keyCode));
+                            }
+                            else
+                            {
+                                Task.Run(() => SimulateKeyDown(keyCode.KeyCode));
+                            }
                         }
                     }
                 }

@@ -14,10 +14,9 @@ namespace SuperMacro
     {
         internal const char MACRO_START_CHAR = '{';
         internal const string MACRO_END = "}}";
-        internal const string REGEX_MACRO = @"\{(\{[^\{\}]+\})+\}";
+        internal const string REGEX_MACRO = @"^\{(\{[^\{\}]+\})+\}$";
         internal const string REGEX_SUB_COMMAND = @"(\{[^\{\}]+\})";
-        private const string PAUSE_MACRO = "PAUSE";
-
+        internal const int RECOMMENDED_KEYDOWN_DELAY = 50;
 
         internal static string ExtractMacro(string text, int position)
         {
@@ -44,9 +43,9 @@ namespace SuperMacro
             return null;
         }
 
-        internal static List<VirtualKeyCode> ExtractKeyStrokes(string macroText, bool allowPause)
+        internal static List<VirtualKeyCodeContainer> ExtractKeyStrokes(string macroText)
         {
-            List<VirtualKeyCode> keyStrokes = new List<VirtualKeyCode>();
+            List<VirtualKeyCodeContainer> keyStrokes = new List<VirtualKeyCodeContainer>();
 
 
             try
@@ -57,31 +56,14 @@ namespace SuperMacro
                     string matchText = match.ToString().ToUpperInvariant().Replace("{", "").Replace("}", "");
                     if (matchText.Length == 1)
                     {
-                        keyStrokes.Add((VirtualKeyCode)matchText[0]);
+                        keyStrokes.Add(new VirtualKeyCodeContainer((VirtualKeyCode)matchText[0]));
                     }
                     else
                     {
-                        // Check if it's a pause command
-                        if (matchText.IndexOf(PAUSE_MACRO) == 0)
+                        VirtualKeyCodeContainer stroke = CommandTools.MacroTextToKeyCode(matchText);
+                        if (stroke != null)
                         {
-                            if (!allowPause)
-                            {
-                                continue;
-                            }
-
-                            int pauseLength;
-                            string pauseLengthStr = matchText.Substring(PAUSE_MACRO.Length);
-                            if (Int32.TryParse(pauseLengthStr, out pauseLength))
-                            {
-                                Thread.Sleep(pauseLength);
-                                continue;
-                            }
-                        }
-
-                        VirtualKeyCode? stroke = CommandTools.MacroTextToKeyCode(matchText);
-                        if (stroke != null && stroke.HasValue)
-                        {
-                            keyStrokes.Add(stroke.Value);
+                            keyStrokes.Add(stroke);
                         }
                     }
                 }
@@ -94,12 +76,20 @@ namespace SuperMacro
             return keyStrokes;
         }
 
-        private static VirtualKeyCode? MacroTextToKeyCode(string macroText)
+        private static VirtualKeyCodeContainer MacroTextToKeyCode(string macroText)
         {
             try
             {
                 string text = ConvertSimilarMacroCommands(macroText);
-                return (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), text, true);
+                string extendedData;
+                if (ExtendedMacroHandler.IsExtendedMacro(text, out extendedData))
+                {
+                    text = text.Substring(0, text.Length - extendedData.Length);
+                    return new VirtualKeyCodeContainer(VirtualKeyCode.ZOOM, text, extendedData);
+                }
+
+                VirtualKeyCode keyCode = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), text, true);
+                return new VirtualKeyCodeContainer(keyCode);
             }
             catch (Exception ex)
             {
@@ -136,6 +126,8 @@ namespace SuperMacro
                     return "PRIOR";
                 case "PAGEDOWN":
                     return "NEXT";
+                case "BREAK":
+                    return "PAUSE";
 
             }
 

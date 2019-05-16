@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperMacro", "SuperMacro\SuperMacro.csproj", "{A35FB18D-7867-4F77-A9F3-863BF6F18C6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsInput", "..\InputSimulatorPlus\WindowsInput\WindowsInput.csproj", "{3549CD6F-80F8-450F-B99E-CF0A736B1F2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputTester", "..\..\dotnet\streamdeck\InputTester\InputTester.csproj", "{6727297A-E568-454E-93A5-F703D0FBE130}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{A35FB18D-7867-4F77-A9F3-863BF6F18C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A35FB18D-7867-4F77-A9F3-863BF6F18C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A35FB18D-7867-4F77-A9F3-863BF6F18C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3549CD6F-80F8-450F-B99E-CF0A736B1F2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3549CD6F-80F8-450F-B99E-CF0A736B1F2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3549CD6F-80F8-450F-B99E-CF0A736B1F2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3549CD6F-80F8-450F-B99E-CF0A736B1F2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6727297A-E568-454E-93A5-F703D0FBE130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6727297A-E568-454E-93A5-F703D0FBE130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6727297A-E568-454E-93A5-F703D0FBE130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6727297A-E568-454E-93A5-F703D0FBE130}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

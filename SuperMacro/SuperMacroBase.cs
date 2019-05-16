@@ -15,6 +15,8 @@ namespace SuperMacro
         #region Protected Members
 
         protected bool inputRunning = false;
+        protected bool forceStop = false;
+        protected MacroSettingsBase settings;
 
         #endregion
 
@@ -30,7 +32,7 @@ namespace SuperMacro
 
         #endregion
 
-        protected async void SendInput(string inputText, int delay, bool enterMode)
+        protected async void SendInput(string inputText)
         {
             inputRunning = true;
             await Task.Run(() =>
@@ -38,14 +40,14 @@ namespace SuperMacro
                 InputSimulator iis = new InputSimulator();
                 string text = inputText;
 
-                if (enterMode)
+                if (settings.EnterMode)
                 {
                     text = text.Replace("\r\n", "\n");
                 }
 
-                for (int idx = 0; idx < text.Length; idx++)
+                for (int idx = 0; idx < text.Length && !forceStop; idx++)
                 {
-                    if (enterMode && text[idx] == '\n')
+                    if (settings.EnterMode && text[idx] == '\n')
                     {
                         iis.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
                     }
@@ -54,7 +56,7 @@ namespace SuperMacro
                         string macro = CommandTools.ExtractMacro(text, idx);
                         if (String.IsNullOrWhiteSpace(macro)) // Not a macro, just input the character
                         {
-                            iis.Keyboard.TextEntry(text[idx]);
+                            InputChar(iis, text[idx]);
                         }
                         else // This is a macro, run it
                         {
@@ -67,9 +69,9 @@ namespace SuperMacro
                     }
                     else
                     {
-                        iis.Keyboard.TextEntry(text[idx]);
+                        InputChar(iis, text[idx]);
                     }
-                    Thread.Sleep(delay);
+                    Thread.Sleep(settings.Delay);
                 }
             });
             inputRunning = false;
@@ -77,23 +79,71 @@ namespace SuperMacro
 
         protected void HandleMacro(string macro)
         {
-            List<VirtualKeyCode> keyStrokes = CommandTools.ExtractKeyStrokes(macro, true);
+            List<VirtualKeyCodeContainer> keyStrokes = CommandTools.ExtractKeyStrokes(macro);
 
             // Actually initiate the keystrokes
             if (keyStrokes.Count > 0)
             {
                 InputSimulator iis = new InputSimulator();
-                VirtualKeyCode keyCode = keyStrokes.Last();
+                VirtualKeyCodeContainer keyCode = keyStrokes.Last();
                 keyStrokes.Remove(keyCode);
 
                 if (keyStrokes.Count > 0)
                 {
-                    iis.Keyboard.ModifiedKeyStroke(keyStrokes.ToArray(), keyCode);
+                    if (settings.KeydownDelay)
+                    {
+                        iis.Keyboard.DelayedModifiedKeyStroke(keyStrokes.Select(ks => ks.KeyCode).ToArray(), new VirtualKeyCode[] { keyCode.KeyCode }, settings.Delay);
+                    }
+                    else
+                    {
+                        iis.Keyboard.ModifiedKeyStroke(keyStrokes.Select(ks => ks.KeyCode).ToArray(), keyCode.KeyCode);
+                    }
                 }
-                else
+                else // Single Keycode
                 {
-                    iis.Keyboard.KeyPress(keyCode);
+                    if (keyCode.IsExtended)
+                    {
+                        ExtendedMacroHandler.HandleExtendedMacro(iis, keyCode);
+                    }
+                    else // Normal single keycode
+                    {
+                        // Try handling mouse
+                        switch (keyCode.KeyCode)
+                        {
+                            case VirtualKeyCode.LBUTTON:
+                                iis.Mouse.LeftButtonClick();
+                                break;
+                            case VirtualKeyCode.RBUTTON:
+                                iis.Mouse.RightButtonClick();
+                                break;
+                            case VirtualKeyCode.MBUTTON:
+                                iis.Mouse.MiddleButtonClick();
+                                break;
+                            case VirtualKeyCode.XBUTTON1:
+                                iis.Mouse.LeftButtonDoubleClick();
+                                break;
+                            case VirtualKeyCode.XBUTTON2:
+                                iis.Mouse.RightButtonDoubleClick();
+                                break;
+                            default:
+                                iis.Keyboard.KeyPress(keyCode.KeyCode);
+                                break;
+                        }
+                    }
                 }
+            }
+        }
+
+        protected void InputChar(InputSimulator iis, char c)
+        {
+            if (settings.ForcedMacro)
+            {
+                VirtualKeyCode vk = VirtualKeyCode.LBUTTON;
+                iis.Keyboard.KeyPress(vk.FromChar(c));
+            }
+            else
+            {
+                iis.Keyboard.TextEntry(c);
             }
         }
     }

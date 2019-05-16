@@ -16,7 +16,7 @@ namespace SuperMacro
     [PluginActionId("com.barraider.supermacrostickymacro")]
     public class SuperMacroSticky : SuperMacroBase
     {
-        private class PluginSettings
+        protected class PluginSettings : MacroSettingsBase
         {
             public static PluginSettings CreateDefaultSettings()
             {
@@ -24,20 +24,13 @@ namespace SuperMacro
                 instance.InputText = String.Empty; ;
                 instance.Delay = 10;
                 instance.EnterMode = false;
+                instance.ForcedMacro = false;
+                instance.KeydownDelay = false;
                 instance.EnabledImageFilename = string.Empty;
                 instance.DisabledImageFilename = string.Empty;
 
                 return instance;
             }
-
-            [JsonProperty(PropertyName = "inputText")]
-            public string InputText { get; set; }
-
-            [JsonProperty(PropertyName = "delay")]
-            public int Delay { get; set; }
-
-            [JsonProperty(PropertyName = "enterMode")]
-            public bool EnterMode { get; set; }
 
             [FilenameProperty]
             [JsonProperty(PropertyName = "enabledImage")]
@@ -50,7 +43,23 @@ namespace SuperMacro
 
         #region Private members
 
-        private PluginSettings settings;
+        protected PluginSettings Settings
+        {
+            get
+            {
+                var result = settings as PluginSettings;
+                if (result == null)
+                {
+                    Logger.Instance.LogMessage(TracingLevel.ERROR, "Cannot convert MacroSettingsBase to PluginSettings");
+                }
+                return result;
+            }
+            set
+            {
+                settings = value;
+            }
+        }
+
         private string enabledFile = null;
         private string disabledFile = null;
         private bool keyPressed = false;
@@ -63,12 +72,12 @@ namespace SuperMacro
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
             {
-                this.settings = PluginSettings.CreateDefaultSettings();
-                Connection.SetSettingsAsync(JObject.FromObject(settings));
+                Settings = PluginSettings.CreateDefaultSettings();
+                Connection.SetSettingsAsync(JObject.FromObject(Settings));
             }
             else
             {
-                this.settings = payload.Settings.ToObject<PluginSettings>();
+                Settings = payload.Settings.ToObject<PluginSettings>();
                 HandleFilenames();
             }
         }
@@ -80,7 +89,7 @@ namespace SuperMacro
             if (keyPressed)
             {
                 Logger.Instance.LogMessage(TracingLevel.INFO, $"Command Started");
-                SendStickyInput(settings.InputText, settings.Delay, settings.EnterMode);
+                SendStickyInput(Settings.InputText);
             }
         }
 
@@ -116,9 +125,14 @@ namespace SuperMacro
 
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
         {
+            bool prevKeydownDelay = Settings.KeydownDelay;
             // New in StreamDeck-Tools v2.0:
-            Tools.AutoPopulateSettings(settings, payload.Settings);
+            Tools.AutoPopulateSettings(Settings, payload.Settings);
             Logger.Instance.LogMessage(TracingLevel.INFO, $"Settings loaded: {payload.Settings}");
+            if (Settings.KeydownDelay && !prevKeydownDelay && Settings.Delay < CommandTools.RECOMMENDED_KEYDOWN_DELAY)
+            {
+                Settings.Delay = CommandTools.RECOMMENDED_KEYDOWN_DELAY;
+            }
             HandleFilenames();
         }
 
@@ -128,12 +142,12 @@ namespace SuperMacro
 
         private void HandleFilenames()
         {
-            enabledFile = Tools.FileToBase64(settings.EnabledImageFilename, true);
-            disabledFile = Tools.FileToBase64(settings.DisabledImageFilename, true);
-            Connection.SetSettingsAsync(JObject.FromObject(settings));
+            enabledFile = Tools.FileToBase64(Settings.EnabledImageFilename, true);
+            disabledFile = Tools.FileToBase64(Settings.DisabledImageFilename, true);
+            Connection.SetSettingsAsync(JObject.FromObject(Settings));
         }
 
-        protected async void SendStickyInput(string inputText, int delay, bool enterMode)
+        protected async void SendStickyInput(string inputText)
         {
             inputRunning = true;
             await Task.Run(() =>
@@ -141,7 +155,7 @@ namespace SuperMacro
                 InputSimulator iis = new InputSimulator();
                 string text = inputText;
 
-                if (enterMode)
+                if (Settings.EnterMode)
                 {
                     text = text.Replace("\r\n", "\n");
                 }
@@ -154,7 +168,7 @@ namespace SuperMacro
                         {
                             break;
                         }
-                        if (enterMode && text[idx] == '\n')
+                        if (Settings.EnterMode && text[idx] == '\n')
                         {
                             iis.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.RETURN);
                         }
@@ -178,7 +192,7 @@ namespace SuperMacro
                         {
                             iis.Keyboard.TextEntry(text[idx]);
                         }
-                        Thread.Sleep(delay);
+                        Thread.Sleep(Settings.Delay);
                     }
                 }
             });

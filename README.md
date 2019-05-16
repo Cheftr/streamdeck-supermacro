@@ -2,6 +2,20 @@
 
 **Author's website and contact information:** [https://barraider.github.io](https://barraider.github.io)
 
+## What's New
+- Added support for Mouse clicks:  
+  *  {{LBUTTON}} = Left Click / {{RBUTTON}} = Right Click / {{MBUTTON}} = Middle Click / {{XBUTTON1}} = Left Double-Click / {{XBUTTON2}} = Right Double-Click
+- Added support for moving the mouse cursor:
+  * {{MOUSEMOVEX,Y}} - Move the cursor by X,Y from current position
+  * {{MOUSEPOSX,Y}} - Move the cursor to the X,Y position on the screen
+- 2 New Modes for Super Macro / Super Macro Toggle / Sticky Super Macro:
+  * **Delayed Keydown Mode** - Try using this mode for programs where the normal mode doesn't work (for instance OBS Studio).
+  * **Forced Macro Mode**  - Sends normal text (such as "abc") as macros (i.e {{a}}{{b}}{{c}})
+- Added support to stop a macro while running: For Super Macro and Super Macro Toggle, pressing the button again while running will stop the macro execution
+- Added support for Pause/Break button: {{BREAK}}
+- Added support for Print Screen button: {{SNAPSHOT}}
+- Improved support for escaping curly braces when not in a macro
+
 ## Current functionality
 ### 5 Plugins built into one:
 #### Super Macro
@@ -40,7 +54,15 @@ Note2: This will not work correctly if your Windows (and notepad) are not in Eng
 3. Calculate something  
 Note: Delay should be ~20 ms  
 ```
-{{win}{r}}{{pause300}}calc{{enter}}1*2*3*4*5=
+{{win}{r}}{{pause300}}calc{{enter}}{{pause1000}}1*2*3*4*5=
+```
+4. Move the mouse to a certain position on the screen
+```
+{{MOUSEPOS40000,15000}}
+```
+5. Move the mouse by 10 pixels left and 20 pixels down on every press
+```
+{{MOUSEMOVE-10,20}}
 ```
 
 ## Download
@@ -119,6 +141,10 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
             <td>Right ALT</td>
             <td>{RALT} or {RMENU}</td>
         </tr>
+		<tr>
+            <td>PAUSE/BREAK</td>
+            <td>{BREAK}</td>
+        </tr>
         <tr>
             <td>CAPS LOCK</td>
             <td>{CAPITAL}</td>
@@ -168,16 +194,16 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
             <td>{SELECT}</td>
         </tr>
         <tr>
+            <td>PRINT SCREEN</td>
+            <td>{SNAPSHOT}</td>
+        </tr>
+        <tr>
             <td>PRINT</td>
             <td>{PRINT}</td>
         </tr>
         <tr>
             <td>EXECUTE</td>
             <td>{EXECUTE}</td>
-        </tr>
-        <tr>
-            <td>PRINT SCREEN</td>
-            <td>{SNAPSHOT}</td>
         </tr>
         <tr>
             <td>INS</td>
@@ -342,6 +368,34 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
         <tr>
             <td>SCROLL LOCK</td>
             <td>{SCROLL}</td>
+        </tr>
+		<tr>
+            <td>MOUSE LEFT CLICK</td>
+            <td>{LBUTTON}</td>
+        </tr>
+		<tr>
+            <td>MOUSE LEFT DOUBLE-CLICK</td>
+            <td>{XBUTTON1}</td>
+        </tr>
+		<tr>
+            <td>MOUSE RIGHT CLICK</td>
+            <td>{RBUTTON}</td>
+        </tr>
+		<tr>
+            <td>MOUSE RIGHT DOUBLE-CLICK</td>
+            <td>{XBUTTON2}</td>
+        </tr>
+		<tr>
+            <td>MOUSE MIDDLE CLICK</td>
+            <td>{MBUTTON}</td>
+        </tr>
+		<tr>
+            <td>MOUSE MOVE</td>
+            <td>{MOUSEMOVEX,Y} (Move the cursor by X,Y from current position)</td>
+        </tr>
+		<tr>
+            <td>MOUSE POSITION</td>
+            <td>{MOUSEPOSX,Y} (Move the cursor to the X,Y position on the screen. Values from 0,0 to 65535,65535)</td>
         </tr>
     </tbody>
 </table>

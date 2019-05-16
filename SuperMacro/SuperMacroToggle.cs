@@ -16,7 +16,7 @@ namespace SuperMacro
     [PluginActionId("com.barraider.supermacrotoggle")]
     public class SuperMacroToggle : SuperMacroBase
     {
-        private class PluginSettings
+        protected class PluginSettings : MacroSettingsBase
         {
             public static PluginSettings CreateDefaultSettings()
             {
@@ -27,21 +27,14 @@ namespace SuperMacro
                 instance.SecondaryImageFilename = string.Empty;
                 instance.Delay = 10;
                 instance.EnterMode = false;
+                instance.ForcedMacro = false;
+                instance.KeydownDelay = false;
 
                 return instance;
             }
 
-            [JsonProperty(PropertyName = "inputText")]
-            public string InputText { get; set; }
-
             [JsonProperty(PropertyName = "secondaryText")]
             public string SecondaryText { get; set; }
-
-            [JsonProperty(PropertyName = "delay")]
-            public int Delay { get; set; }
-
-            [JsonProperty(PropertyName = "enterMode")]
-            public bool EnterMode { get; set; }
 
             [FilenameProperty]
             [JsonProperty(PropertyName = "primaryImage")]
@@ -52,9 +45,25 @@ namespace SuperMacro
             public string SecondaryImageFilename { get; set; }
         }
 
+        protected PluginSettings Settings
+        {
+            get
+            {
+                var result = settings as PluginSettings;
+                if (result == null)
+                {
+                    Logger.Instance.LogMessage(TracingLevel.ERROR, "Cannot convert MacroSettingsBase to PluginSettings");
+                }
+                return result;
+            }
+            set
+            {
+                settings = value;
+            }
+        }
+
         #region Private members
 
-        private PluginSettings settings;
         string primaryFile = null;
         string secondaryFile = null;
         bool isPrimary = false;
@@ -67,12 +76,12 @@ namespace SuperMacro
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
             {
-                this.settings = PluginSettings.CreateDefaultSettings();
-                Connection.SetSettingsAsync(JObject.FromObject(settings));
+                Settings = PluginSettings.CreateDefaultSettings();
+                Connection.SetSettingsAsync(JObject.FromObject(Settings));
             }
             else
             {
-                this.settings = payload.Settings.ToObject<PluginSettings>();
+                Settings = payload.Settings.ToObject<PluginSettings>();
             }
         }
 
@@ -81,12 +90,14 @@ namespace SuperMacro
             Logger.Instance.LogMessage(TracingLevel.INFO, $"Key Pressed {this.GetType()}");
             if (inputRunning)
             {
+                forceStop = true;
                 return;
             }
 
+            forceStop = false;
             isPrimary = !isPrimary;
-            string text = isPrimary ? settings.InputText : settings.SecondaryText;
-            SendInput(text, settings.Delay, settings.EnterMode);
+            string text = isPrimary ? Settings.InputText : Settings.SecondaryText;
+            SendInput(text);
         }
 
         public override void Dispose()
@@ -120,9 +131,14 @@ namespace SuperMacro
 
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
         {
+            bool prevKeydownDelay = Settings.KeydownDelay;
             // New in StreamDeck-Tools v2.0:
-            Tools.AutoPopulateSettings(settings, payload.Settings);
+            Tools.AutoPopulateSettings(Settings, payload.Settings);
             Logger.Instance.LogMessage(TracingLevel.INFO, $"Settings loaded: {payload.Settings}");
+            if (Settings.KeydownDelay && !prevKeydownDelay && Settings.Delay < CommandTools.RECOMMENDED_KEYDOWN_DELAY)
+            {
+                Settings.Delay = CommandTools.RECOMMENDED_KEYDOWN_DELAY;
+            }
             HandleFilenames();
         }
 
@@ -132,9 +148,9 @@ namespace SuperMacro
 
         private void HandleFilenames()
         {
-            primaryFile = Tools.FileToBase64(settings.PrimaryImageFilename, true);
-            secondaryFile = Tools.FileToBase64(settings.SecondaryImageFilename, true);
-            Connection.SetSettingsAsync(JObject.FromObject(settings));
+            primaryFile = Tools.FileToBase64(Settings.PrimaryImageFilename, true);
+            secondaryFile = Tools.FileToBase64(Settings.SecondaryImageFilename, true);
+            Connection.SetSettingsAsync(JObject.FromObject(Settings));
         }
 
         #endregion

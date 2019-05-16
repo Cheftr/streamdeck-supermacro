@@ -16,7 +16,7 @@ namespace SuperMacro
     [PluginActionId("com.barraider.supermacro")]
     public class SuperMacro : SuperMacroBase
     {
-        private class PluginSettings
+        protected class PluginSettings : MacroSettingsBase
         {
             public static PluginSettings CreateDefaultSettings()
             {
@@ -24,25 +24,29 @@ namespace SuperMacro
                 instance.InputText = String.Empty; ;
                 instance.Delay = 10;
                 instance.EnterMode = false;
+                instance.ForcedMacro = false;
+                instance.KeydownDelay = false;
 
                 return instance;
             }
-
-            [JsonProperty(PropertyName = "inputText")]
-            public string InputText { get; set; }
-
-            [JsonProperty(PropertyName = "delay")]
-            public int Delay { get; set; }
-
-            [JsonProperty(PropertyName = "enterMode")]
-            public bool EnterMode { get; set; }
         }
 
-        #region Private members
-
-        private PluginSettings settings;
-
-        #endregion
+        protected PluginSettings Settings
+        {
+            get
+            {
+                var result = settings as PluginSettings;
+                if (result == null)
+                {
+                    Logger.Instance.LogMessage(TracingLevel.ERROR, "Cannot convert MacroSettingsBase to PluginSettings");
+                }
+                return result;
+            }
+            set
+            {
+                settings = value;
+            }
+        }
 
         #region Public Methods
 
@@ -50,12 +54,12 @@ namespace SuperMacro
         {
             if (payload.Settings == null || payload.Settings.Count == 0)
             {
-                this.settings = PluginSettings.CreateDefaultSettings();
-                Connection.SetSettingsAsync(JObject.FromObject(settings));
+                Settings = PluginSettings.CreateDefaultSettings();
+                Connection.SetSettingsAsync(JObject.FromObject(Settings));
             }
             else
             {
-                this.settings = payload.Settings.ToObject<PluginSettings>();
+                Settings = payload.Settings.ToObject<PluginSettings>();
             }
         }
 
@@ -64,10 +68,12 @@ namespace SuperMacro
             Logger.Instance.LogMessage(TracingLevel.INFO, $"Key Pressed {this.GetType()}");
             if (inputRunning)
             {
+                forceStop = true;
                 return;
             }
-            
-            SendInput(settings.InputText, settings.Delay, settings.EnterMode);
+
+            forceStop = false;
+            SendInput(Settings.InputText);
         }
 
        
@@ -78,9 +84,16 @@ namespace SuperMacro
 
         public override void ReceivedSettings(ReceivedSettingsPayload payload)
         {
+            bool prevKeydownDelay = Settings.KeydownDelay;
             // New in StreamDeck-Tools v2.0:
-            Tools.AutoPopulateSettings(settings, payload.Settings);
+            Tools.AutoPopulateSettings(Settings, payload.Settings);
             Logger.Instance.LogMessage(TracingLevel.INFO, $"Settings loaded: {payload.Settings}");
+
+            if (Settings.KeydownDelay && !prevKeydownDelay && Settings.Delay < CommandTools.RECOMMENDED_KEYDOWN_DELAY)
+            {
+                Settings.Delay = CommandTools.RECOMMENDED_KEYDOWN_DELAY;
+                Connection.SetSettingsAsync(JObject.FromObject(Settings));
+            }
         }
 
         #endregion
