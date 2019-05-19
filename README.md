@@ -7,7 +7,7 @@
   *  {{LBUTTON}} = Left Click / {{RBUTTON}} = Right Click / {{MBUTTON}} = Middle Click / {{XBUTTON1}} = Left Double-Click / {{XBUTTON2}} = Right Double-Click
 - Added support for moving the mouse cursor:
   * {{MOUSEMOVEX,Y}} - Move the cursor by X,Y from current position
-  * {{MOUSEPOSX,Y}} - Move the cursor to the X,Y position on the screen
+  * {{MOUSEPOSX,Y}} - Move the cursor to the X,Y position on the screen - (Valid values range from 0,0 to 65535,65535)
 - 2 New Modes for Super Macro / Super Macro Toggle / Sticky Super Macro:
   * **Delayed Keydown Mode** - Try using this mode for programs where the normal mode doesn't work (for instance OBS Studio).
   * **Forced Macro Mode**  - Sends normal text (such as "abc") as macros (i.e {{a}}{{b}}{{c}})
@@ -32,7 +32,6 @@ This action limits the action to either one command (such as {{ctrl}{c}}) or one
 
 #### Sticky Keystroke
 This action limits the action to either one command (such as {{ctrl}{c}}) or one character. The command will be run again and again until the button is pressed again.
-
 
 ## How do I get started using it?
 SuperMacro knows to deal with both *Commands* and normal text. A command is either one special key (like F5 or Winkey) or a keystroke (like Ctrl-C). A command is always enclosed in {} and each individual key in the command is also inclosed in {} so you should always see two `{{` at the beginning and two `}}` at the end. For instance: `{{f5}}` or `{{ctrl}{c}}`
