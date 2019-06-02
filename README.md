@@ -360,6 +360,11 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
             <td>F24</td>
             <td>{F24}</td>
         </tr>
+		<tr>
+            <td>One of the following:<br/><b>;/`[\]':?~{|}"</b></td>
+            <td>Changes between keyboard layouts: Try the following macro to figure out the correct key: `{{oem_1}}{{oem_2}}{{oem_3}}{{oem_4}}{{oem_5}}{{oem_6}}{{oem_7}}{{oem_8}}`
+			`{{shift}{oem_1}}{{shift}{oem_2}}{{shift}{oem_3}}{{shift}{oem_4}}{{shift}{oem_5}}{{shift}{oem_6}}{{shift}{oem_7}}{{shift}{oem_8}}`</td>
+        </tr>
         <tr>
             <td>NUM LOCK</td>
             <td>{NUMLOCK}</td>
@@ -369,32 +374,40 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
             <td>{SCROLL}</td>
         </tr>
 		<tr>
-            <td>MOUSE LEFT CLICK</td>
+            <td>Mouse Left-Click</td>
             <td>{LBUTTON}</td>
         </tr>
 		<tr>
-            <td>MOUSE LEFT DOUBLE-CLICK</td>
+            <td>Mouse Left Double-Click</td>
             <td>{XBUTTON1}</td>
         </tr>
 		<tr>
-            <td>MOUSE RIGHT CLICK</td>
+            <td>Mouse Right-Click</td>
             <td>{RBUTTON}</td>
         </tr>
 		<tr>
-            <td>MOUSE RIGHT DOUBLE-CLICK</td>
+            <td>Mouse Right Double-Click</td>
             <td>{XBUTTON2}</td>
         </tr>
 		<tr>
-            <td>MOUSE MIDDLE CLICK</td>
+            <td>Mouse Middle Click</td>
             <td>{MBUTTON}</td>
         </tr>
 		<tr>
-            <td>MOUSE MOVE</td>
+            <td>Mouse Scroll Wheel Up</td>
+            <td>{MBUTTON}</td>
+        </tr>
+		<tr>
+            <td>Mouse Scroll Wheel Down</td>
+            <td>{MBUTTON}</td>
+        </tr>
+		<tr>
+            <td>Mouse Move: Based on CURRENT position</td>
             <td>{MOUSEMOVEX,Y} (Move the cursor by X,Y from current position)</td>
         </tr>
 		<tr>
-            <td>MOUSE POSITION</td>
-            <td>{MOUSEPOSX,Y} (Move the cursor to the X,Y position on the screen. Values from 0,0 to 65535,65535)</td>
+            <td>Mouse Move: based on ABSOLUTE position </td>
+            <td>{MOUSEPOSX,Y} (Move the cursor to the X,Y position on the screen. Values from 0,0 [top-left] to 65535,65535 [bottom-right])</td>
         </tr>
     </tbody>
 </table>
