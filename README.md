@@ -361,8 +361,8 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
             <td>{F24}</td>
         </tr>
 		<tr>
-            <td>One of the following:<br/><b>;/`[\]':?~{|}"</b></td>
-            <td>Exact value Changes between keyboard layouts:<br/>Try the following macros to figure out the correct command:<br/> <b>{{oem_1}}{{oem_2}}{{oem_3}}{{oem_4}}{{oem_5}}{{oem_6}}{{oem_7}}{{oem_8}}
+            <td>These characters:<br/><b>;/`[\]':?~{|}"</b></td>
+            <td>Exact command changes between keyboard layouts:<br/>Try the following macros to figure out the correct command:<br/> <b>{{oem_1}}{{oem_2}}{{oem_3}}{{oem_4}}{{oem_5}}{{oem_6}}{{oem_7}}{{oem_8}}
 			{{shift}{oem_1}}{{shift}{oem_2}}{{shift}{oem_3}}{{shift}{oem_4}}{{shift}{oem_5}}{{shift}{oem_6}}{{shift}{oem_7}}{{shift}{oem_8}}</b></td>
         </tr>
         <tr>
