@@ -107,27 +107,9 @@ namespace SuperMacro
                     }
                     else // Normal single keycode
                     {
-                        // Try handling mouse
-                        switch (keyCode.KeyCode)
+                        if (!MouseHandler.HandleMouseMacro(iis, keyCode.KeyCode))
                         {
-                            case VirtualKeyCode.LBUTTON:
-                                iis.Mouse.LeftButtonClick();
-                                break;
-                            case VirtualKeyCode.RBUTTON:
-                                iis.Mouse.RightButtonClick();
-                                break;
-                            case VirtualKeyCode.MBUTTON:
-                                iis.Mouse.MiddleButtonClick();
-                                break;
-                            case VirtualKeyCode.XBUTTON1:
-                                iis.Mouse.LeftButtonDoubleClick();
-                                break;
-                            case VirtualKeyCode.XBUTTON2:
-                                iis.Mouse.RightButtonDoubleClick();
-                                break;
-                            default:
-                                iis.Keyboard.KeyPress(keyCode.KeyCode);
-                                break;
+                            iis.Keyboard.KeyPress(keyCode.KeyCode);
                         }
                     }
                 }

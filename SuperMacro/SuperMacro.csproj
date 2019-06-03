@@ -72,6 +72,7 @@
     <Compile Include="KeystrokeBase.cs" />
     <Compile Include="KeystrokePTT.cs" />
     <Compile Include="MacroSettingsBase.cs" />
+    <Compile Include="MouseHandler.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

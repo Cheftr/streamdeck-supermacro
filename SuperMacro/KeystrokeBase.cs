@@ -75,7 +75,7 @@ namespace SuperMacro
                         {
                             if (keyCode.IsExtended)
                             {
-                                Task.Run(() => ExtendedMacroHandler.HandleExtendedMacro(iis, keyCode));
+                                Task.Run(() => SimulateExtendedMacro(keyCode));
                             }
                             else
                             {
@@ -127,9 +127,13 @@ namespace SuperMacro
         {
             while (keyPressed)
             {
-                iis.Keyboard.KeyDown(keyCode);
+                if (!MouseHandler.HandleMouseMacro(iis, keyCode))
+                {
+                    iis.Keyboard.KeyDown(keyCode);
+                }
                 Thread.Sleep(30);
             }
+            iis.Keyboard.KeyUp(keyCode); // Release key at the end
         }
 
         private void SimulateKeyStroke(VirtualKeyCode[] keyStrokes, VirtualKeyCode keyCode)
@@ -137,6 +141,15 @@ namespace SuperMacro
             while (keyPressed)
             {
                 iis.Keyboard.ModifiedKeyStroke(keyStrokes, keyCode);
+                Thread.Sleep(30);
+            }
+        }
+
+        private void SimulateExtendedMacro(VirtualKeyCodeContainer keyCode)
+        {
+            while (keyPressed)
+            {
+                ExtendedMacroHandler.HandleExtendedMacro(iis, keyCode);
                 Thread.Sleep(30);
             }
         }

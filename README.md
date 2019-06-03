@@ -2,12 +2,19 @@
 
 **Author's website and contact information:** [https://barraider.github.io](https://barraider.github.io)
 
-## What's New
+## What's New in v1.2
+* Added support for Mouse Scroll. Supports 4-way scrolling:
+`{{MSCROLLUP}}` = Scroll Up / `{{MSCROLLDOWN}}` = Scroll Down / `{{MSCROLLLEFT}}` = Scroll Left / `{{MSCROLLRIGHT}}` = Scroll Right
+* Optimized the **KeyStroke PTT** action to work great with the new Mouse Scrolls
+* Sticky Keypress is now optimized for single button features like {{alt}} or {{shift}}
+
+
+## What's New in v1.1
 - Added support for Mouse clicks:  
-  *  {{LBUTTON}} = Left Click / {{RBUTTON}} = Right Click / {{MBUTTON}} = Middle Click / {{XBUTTON1}} = Left Double-Click / {{XBUTTON2}} = Right Double-Click
+  *  `{{LBUTTON}}` = Left Click / `{{RBUTTON}}` = Right Click / `{{MBUTTON}}` = Middle Click / `{{XBUTTON1}}` = Left Double-Click / `{{XBUTTON2}}` = Right Double-Click
 - Added support for moving the mouse cursor:
-  * {{MOUSEMOVEX,Y}} - Move the cursor by X,Y from current position
-  * {{MOUSEPOSX,Y}} - Move the cursor to the X,Y position on the screen - (Valid values range from 0,0 to 65535,65535)
+  * `{{MOUSEMOVEX,Y}}` - Move the cursor by X,Y from current position
+  * `{{MOUSEPOSX,Y}}` - Move the cursor to the X,Y position on the screen - (Valid values range from 0,0 to 65535,65535)
 - 2 New Modes for Super Macro / Super Macro Toggle / Sticky Super Macro:
   * **Delayed Keydown Mode** - Try using this mode for programs where the normal mode doesn't work (for instance OBS Studio).
   * **Forced Macro Mode**  - Sends normal text (such as "abc") as macros (i.e {{a}}{{b}}{{c}})
@@ -362,8 +369,24 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
         </tr>
 		<tr>
             <td>These characters:<br/><b>;/`[\]':?~{|}"</b></td>
-            <td>Exact command changes between keyboard layouts:<br/>Try the following macros to figure out the correct command:<br/> <b>{{oem_1}}{{oem_2}}{{oem_3}}{{oem_4}}{{oem_5}}{{oem_6}}{{oem_7}}{{oem_8}}
-			{{shift}{oem_1}}{{shift}{oem_2}}{{shift}{oem_3}}{{shift}{oem_4}}{{shift}{oem_5}}{{shift}{oem_6}}{{shift}{oem_7}}{{shift}{oem_8}}</b></td>
+            <td>Exact command changes between keyboard layouts:<br/>Try the following macros to figure out the correct command:<br/> <b>{{oem_1}}{{oem_2}}{{oem_3}}{{oem_4}}{{oem_5}} {{oem_6}}{{oem_7}}{{oem_8}}
+			{{shift}{oem_1}}{{shift}{oem_2}}{{shift}{oem_3}} {{shift}{oem_4}}{{shift}{oem_5}} {{shift}{oem_6}}{{shift}{oem_7}}{{shift}{oem_8}}</b></td>
+        </tr>
+		<tr>
+            <td>Plus: +=</td>
+            <td>{OEM_PLUS} / {{SHIFT}{OEM_PLUS}}</td>
+        </tr>
+		<tr>
+            <td>Minus: -_</td>
+            <td>{OEM_MINUS} / {{SHIFT}{OEM_MINUS}}</td>
+        </tr>
+		<tr>
+            <td>Period: .&gt;</td>
+            <td>{OEM_PERIOD} / {{SHIFT}{OEM_PERIOD}}</td>
+        </tr>
+		<tr>
+            <td>Comma: ,&lt;</td>
+            <td>{OEM_COMMA} / {{SHIFT}{OEM_COMMA}}</td>
         </tr>
         <tr>
             <td>NUM LOCK</td>
@@ -372,6 +395,17 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
         <tr>
             <td>SCROLL LOCK</td>
             <td>{SCROLL}</td>
+        </tr>
+    </tbody>
+</table>
+
+## Mouse Commands
+
+<table id="commands" border="1">
+    <tbody>
+        <tr>
+            <th align="center">Keyboard Key</th>
+            <th align="center">Macro Command</th>
         </tr>
 		<tr>
             <td>Mouse Left-Click</td>
@@ -395,11 +429,19 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
         </tr>
 		<tr>
             <td>Mouse Scroll Wheel Up</td>
-            <td>{MBUTTON}</td>
+            <td>{MSCROLLUP}</td>
         </tr>
 		<tr>
             <td>Mouse Scroll Wheel Down</td>
-            <td>{MBUTTON}</td>
+            <td>{MSCROLLDOWN}</td>
+        </tr>
+		<tr>
+            <td>Mouse Horizontal Scroll Left</td>
+            <td>{MSCROLLLEFT}</td>
+        </tr>
+		<tr>
+            <td>Mouse Horizontal Scroll Right</td>
+            <td>{MSCROLLRIGHT}</td>
         </tr>
 		<tr>
             <td>Mouse Move: Based on CURRENT position</td>
@@ -409,5 +451,5 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
             <td>Mouse Move: based on ABSOLUTE position </td>
             <td>{MOUSEPOSX,Y} (Move the cursor to the X,Y position on the screen. Values from 0,0 [top-left] to 65535,65535 [bottom-right])</td>
         </tr>
-    </tbody>
+  </tbody>
 </table>
