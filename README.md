@@ -72,7 +72,7 @@ Note: Delay should be ~20 ms
 ```
 
 ## Download
-https://github.com/BarRaider/streamdeck-supermacro/releases/download/v1.0/com.barraider.supermacro.streamDeckPlugin
+https://github.com/BarRaider/streamdeck-supermacro/releases
 
 ## I found a bug, who do I contact?
 For support please contact the developer. Contact information is available at https://barraider.github.io
