@@ -82,6 +82,7 @@ namespace SuperMacro
             else
             {
                 Settings = payload.Settings.ToObject<PluginSettings>();
+                HandleFilenames();
             }
         }
 
