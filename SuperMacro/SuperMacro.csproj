@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A35FB18D-7867-4F77-A9F3-863BF6F18C6F}</ProjectGuid>
+    <ProjectGuid>{7419BE97-6DC0-4A5F-843E-61299A11CC3A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>SuperMacro</RootNamespace>
     <AssemblyName>com.barraider.supermacro</AssemblyName>

@@ -82,11 +82,6 @@ namespace SuperMacro
 
         public override void OnTick() { }
 
-        public override void Dispose()
-        {
-            Logger.Instance.LogMessage(TracingLevel.INFO, "Destructor called");
-        }
-
         public override Task SaveSettings()
         {
             return Connection.SetSettingsAsync(JObject.FromObject(Settings));

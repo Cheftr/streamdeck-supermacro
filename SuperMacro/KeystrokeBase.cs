@@ -119,6 +119,12 @@ namespace SuperMacro
             }
         }
 
+        public override void Dispose()
+        {
+            keyPressed = false;
+            Logger.Instance.LogMessage(TracingLevel.INFO, "Destructor called");
+        }
+
         #endregion
 
         #region Private Methods
