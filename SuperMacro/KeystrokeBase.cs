@@ -18,6 +18,9 @@ namespace SuperMacro
         {
             [JsonProperty(PropertyName = "command")]
             public string Command { get; set; }
+
+            [JsonProperty(PropertyName = "forcedKeydown")]
+            public bool ForcedKeydown { get; set; }
         }
 
         #region Private Members
@@ -131,6 +134,7 @@ namespace SuperMacro
 
         private void SimulateKeyDown(VirtualKeyCode keyCode)
         {
+            Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} SimulateKeyDown");
             while (keyPressed)
             {
                 if (!MouseHandler.HandleMouseMacro(iis, keyCode))
@@ -144,15 +148,37 @@ namespace SuperMacro
 
         private void SimulateKeyStroke(VirtualKeyCode[] keyStrokes, VirtualKeyCode keyCode)
         {
+            Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} SimulateKeyStroke. ForcedKeyDown: {settings.ForcedKeydown}");
             while (keyPressed)
             {
-                iis.Keyboard.ModifiedKeyStroke(keyStrokes, keyCode);
+                if (settings.ForcedKeydown)
+                {
+                    foreach(var keystroke in keyStrokes)
+                    {
+                        iis.Keyboard.KeyDown(keystroke);
+                    }
+                    iis.Keyboard.KeyDown(keyCode);
+                }
+                else
+                {
+                    iis.Keyboard.ModifiedKeyStroke(keyStrokes, keyCode);
+                }
                 Thread.Sleep(30);
+            }
+
+            if (settings.ForcedKeydown)
+            {
+                iis.Keyboard.KeyUp(keyCode);
+                foreach (var keystroke in keyStrokes)
+                {
+                    iis.Keyboard.KeyUp(keystroke);
+                }
             }
         }
 
         private void SimulateExtendedMacro(VirtualKeyCodeContainer keyCode)
         {
+            Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} SimulateExtendedMacro");
             while (keyPressed)
             {
                 ExtendedMacroHandler.HandleExtendedMacro(iis, keyCode);
@@ -162,6 +188,7 @@ namespace SuperMacro
 
         private void SimulateTextEntry(char character)
         {
+            Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} SimulateTextEntry");
             while (keyPressed)
             {
                 iis.Keyboard.TextEntry(character);

@@ -92,10 +92,12 @@ namespace SuperMacro
                 {
                     if (settings.KeydownDelay)
                     {
+                        Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} DelayedModifiedKeyStroke");
                         iis.Keyboard.DelayedModifiedKeyStroke(keyStrokes.Select(ks => ks.KeyCode).ToArray(), new VirtualKeyCode[] { keyCode.KeyCode }, settings.Delay);
                     }
                     else
                     {
+                        Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} ModifiedKeyStroke");
                         iis.Keyboard.ModifiedKeyStroke(keyStrokes.Select(ks => ks.KeyCode).ToArray(), keyCode.KeyCode);
                     }
                 }
@@ -103,12 +105,14 @@ namespace SuperMacro
                 {
                     if (keyCode.IsExtended)
                     {
+                        Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} HandleExtendedMacro");
                         ExtendedMacroHandler.HandleExtendedMacro(iis, keyCode);
                     }
                     else // Normal single keycode
                     {
                         if (!MouseHandler.HandleMouseMacro(iis, keyCode.KeyCode))
                         {
+                            Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} KeyPress");
                             iis.Keyboard.KeyPress(keyCode.KeyCode);
                         }
                     }
@@ -120,11 +124,13 @@ namespace SuperMacro
         {
             if (settings.ForcedMacro)
             {
+                Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} InputChar ForcedMacro");
                 VirtualKeyCode vk = VirtualKeyCode.LBUTTON;
                 iis.Keyboard.KeyPress(vk.FromChar(c));
             }
             else
             {
+                Logger.Instance.LogMessage(TracingLevel.INFO, $"{this.GetType()} InputChar TextEntry");
                 iis.Keyboard.TextEntry(c);
             }
         }

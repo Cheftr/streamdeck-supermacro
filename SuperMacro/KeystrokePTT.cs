@@ -19,8 +19,10 @@ namespace SuperMacro
         {
             public static PluginSettings CreateDefaultSettings()
             {
-                PluginSettings instance = new PluginSettings();
-                instance.Command = String.Empty; ;
+                PluginSettings instance = new PluginSettings
+                {
+                    Command = String.Empty
+                };
                 return instance;
             }
         }

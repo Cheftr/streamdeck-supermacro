@@ -18,10 +18,13 @@ namespace SuperMacro
         {
             public static PluginSettings CreateDefaultSettings()
             {
-                PluginSettings instance = new PluginSettings();
-                instance.Command = String.Empty;
-                instance.EnabledImageFilename = string.Empty;
-                instance.DisabledImageFilename = string.Empty;
+                PluginSettings instance = new PluginSettings
+                {
+                    Command = String.Empty,
+                    EnabledImageFilename = string.Empty,
+                    DisabledImageFilename = string.Empty,
+                    ForcedKeydown = false
+                };
                 return instance;
             }
 

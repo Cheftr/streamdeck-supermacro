@@ -20,14 +20,16 @@ namespace SuperMacro
         {
             public static PluginSettings CreateDefaultSettings()
             {
-                PluginSettings instance = new PluginSettings();
-                instance.InputText = String.Empty; ;
-                instance.Delay = 10;
-                instance.EnterMode = false;
-                instance.ForcedMacro = false;
-                instance.KeydownDelay = false;
-                instance.EnabledImageFilename = string.Empty;
-                instance.DisabledImageFilename = string.Empty;
+                PluginSettings instance = new PluginSettings
+                {
+                    InputText = String.Empty,
+                    Delay = 10,
+                    EnterMode = false,
+                    ForcedMacro = false,
+                    KeydownDelay = false,
+                    EnabledImageFilename = string.Empty,
+                    DisabledImageFilename = string.Empty
+                };
 
                 return instance;
             }

@@ -20,15 +20,17 @@ namespace SuperMacro
         {
             public static PluginSettings CreateDefaultSettings()
             {
-                PluginSettings instance = new PluginSettings();
-                instance.InputText = String.Empty; ;
-                instance.SecondaryText = String.Empty;
-                instance.PrimaryImageFilename = String.Empty;
-                instance.SecondaryImageFilename = string.Empty;
-                instance.Delay = 10;
-                instance.EnterMode = false;
-                instance.ForcedMacro = false;
-                instance.KeydownDelay = false;
+                PluginSettings instance = new PluginSettings
+                {
+                    InputText = String.Empty,
+                    SecondaryText = String.Empty,
+                    PrimaryImageFilename = String.Empty,
+                    SecondaryImageFilename = string.Empty,
+                    Delay = 10,
+                    EnterMode = false,
+                    ForcedMacro = false,
+                    KeydownDelay = false
+                };
 
                 return instance;
             }
