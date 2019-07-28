@@ -168,10 +168,10 @@
     <Content Include="PropertyInspector\SuperMacro\Toggle.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PropertyInspector\SuperMacro\Index.html">
+    <Content Include="PropertyInspector\SuperMacro\SuperMacro.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PropertyInspector\index.js">
+    <Content Include="PropertyInspector\SuperMacro.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="PropertyInspector\jquery-3.3.1.min.js">

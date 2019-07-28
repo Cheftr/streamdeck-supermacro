@@ -17,6 +17,12 @@ namespace SuperMacro
         private const string EXTENDED_MACRO_SCROLL_DOWN = "MSCROLLDOWN";
         private const string EXTENDED_MACRO_SCROLL_LEFT = "MSCROLLLEFT";
         private const string EXTENDED_MACRO_SCROLL_RIGHT = "MSCROLLRIGHT";
+        private const string EXTENDED_MACRO_MOUSE_LEFT_DOWN = "MLEFTDOWN";
+        private const string EXTENDED_MACRO_MOUSE_LEFT_UP = "MLEFTUP";
+        private const string EXTENDED_MACRO_MOUSE_RIGHT_DOWN = "MRIGHTDOWN";
+        private const string EXTENDED_MACRO_MOUSE_RIGHT_UP = "MRIGHTUP";
+        private const string EXTENDED_MACRO_MOUSE_MIDDLE_DOWN = "MMIDDLEDOWN";
+        private const string EXTENDED_MACRO_MOUSE_MIDDLE_UP = "MMIDDLEUP";
 
         public static bool IsExtendedMacro(string macroText, out string extendedData)
         {
@@ -42,7 +48,13 @@ namespace SuperMacro
             if (macroText.StartsWith(EXTENDED_MACRO_SCROLL_UP) ||
                 macroText.StartsWith(EXTENDED_MACRO_SCROLL_DOWN) ||
                 macroText.StartsWith(EXTENDED_MACRO_SCROLL_LEFT) ||
-                macroText.StartsWith(EXTENDED_MACRO_SCROLL_RIGHT))
+                macroText.StartsWith(EXTENDED_MACRO_SCROLL_RIGHT) ||
+                macroText.StartsWith(EXTENDED_MACRO_MOUSE_LEFT_DOWN) ||
+                macroText.StartsWith(EXTENDED_MACRO_MOUSE_LEFT_UP) ||
+                macroText.StartsWith(EXTENDED_MACRO_MOUSE_RIGHT_DOWN) ||
+                macroText.StartsWith(EXTENDED_MACRO_MOUSE_RIGHT_UP) ||
+                macroText.StartsWith(EXTENDED_MACRO_MOUSE_MIDDLE_DOWN) ||
+                macroText.StartsWith(EXTENDED_MACRO_MOUSE_MIDDLE_UP))
             {
                 return true;
             }
@@ -55,8 +67,7 @@ namespace SuperMacro
             // Check if it's a pause command
             if (macro.ExtendedCommand == EXTENDED_MACRO_PAUSE)
             {
-                int pauseLength;
-                if (Int32.TryParse(macro.ExtendedData, out pauseLength))
+                if (Int32.TryParse(macro.ExtendedData, out int pauseLength))
                 {
                     Thread.Sleep(pauseLength);
                     return;
@@ -70,11 +81,9 @@ namespace SuperMacro
                 string[] mousePos = macro.ExtendedData.Split(',');
                 if (mousePos.Length == 2)
                 {
-                    double x;
-                    double y;
-                    if (Double.TryParse(mousePos[0], out x))
+                    if (Double.TryParse(mousePos[0], out double x))
                     {
-                        if (Double.TryParse(mousePos[1], out y))
+                        if (Double.TryParse(mousePos[1], out double y))
                         {
                             if (macro.ExtendedCommand == EXTENDED_MACRO_MOUSE_POS)
                             {
@@ -88,18 +97,57 @@ namespace SuperMacro
                         }
                     }
                 }
+                return;
             }
 
             if (macro.ExtendedCommand == EXTENDED_MACRO_SCROLL_UP || macro.ExtendedCommand == EXTENDED_MACRO_SCROLL_DOWN)
             {
                 int direction = (macro.ExtendedCommand == EXTENDED_MACRO_SCROLL_UP) ? 1 : -1;
                 iis.Mouse.VerticalScroll(direction);
+                return;
             }
 
             if (macro.ExtendedCommand == EXTENDED_MACRO_SCROLL_LEFT || macro.ExtendedCommand == EXTENDED_MACRO_SCROLL_RIGHT)
             {
                 int direction = (macro.ExtendedCommand == EXTENDED_MACRO_SCROLL_RIGHT) ? 1 : -1;
                 iis.Mouse.HorizontalScroll(direction);
+                return;
+            }
+
+            if (macro.ExtendedCommand == EXTENDED_MACRO_MOUSE_LEFT_DOWN)
+            {
+                iis.Mouse.LeftButtonDown();
+                return;
+            }
+
+            if (macro.ExtendedCommand == EXTENDED_MACRO_MOUSE_LEFT_UP)
+            {
+                iis.Mouse.LeftButtonUp();
+                return;
+            }
+
+            if (macro.ExtendedCommand == EXTENDED_MACRO_MOUSE_RIGHT_DOWN)
+            {
+                iis.Mouse.RightButtonDown();
+                return;
+            }
+
+            if (macro.ExtendedCommand == EXTENDED_MACRO_MOUSE_RIGHT_UP)
+            {
+                iis.Mouse.RightButtonUp();
+                return;
+            }
+
+            if (macro.ExtendedCommand == EXTENDED_MACRO_MOUSE_MIDDLE_DOWN)
+            {
+                iis.Mouse.MiddleButtonDown();
+                return;
+            }
+
+            if (macro.ExtendedCommand == EXTENDED_MACRO_MOUSE_MIDDLE_UP)
+            {
+                iis.Mouse.MiddleButtonUp();
+                return;
             }
         }
     }

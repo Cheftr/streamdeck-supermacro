@@ -11,7 +11,7 @@
     <script src="../sdtools.common.js"></script>
     <script src="../jquery-3.3.1.min.js"></script>
     <script src="../jquery.highlight-within-textarea.js"></script>
-    <script src="../index.js"></script>
+    <script src="../SuperMacro.js"></script>
 </head>
 <body>
     <div class="sdpi-wrapper">
@@ -19,9 +19,15 @@
             <summary>For feedback/suggestions contact me at <span class="linkspan" onclick="openWebsite()">https://BarRaider.github.io</span> </summary>
         </details>
         <div type="textarea" class="sdpi-item" id="inputText_div">
-            <div class="sdpi-item-label">Macro</div>
+            <div class="sdpi-item-label">Short-Press Macro</div>
             <span class="sdpi-item-value textarea">
                 <textarea type="textarea" oninput="setSettings()" class="sdProperty" id="inputText"></textarea>
+            </span>
+        </div>
+        <div type="textarea" class="sdpi-item" id="inputText_div">
+            <div class="sdpi-item-label">Long-Press Macro</div>
+            <span class="sdpi-item-value textarea">
+                <textarea type="textarea" oninput="setSettings()" class="sdProperty" id="longPressInputText"></textarea>
             </span>
         </div>
         <script>
@@ -30,6 +36,14 @@
             });
             $("#inputText").focus(function () {
                 $("#inputText").trigger("input.hwt");
+            });
+
+
+            $('#longPressInputText').highlightWithinTextarea({
+                highlight: /\{(\{[^\{\}]+\})+\}/gi
+            });
+            $("#longPressInputText").focus(function () {
+                $("#longPressInputText").trigger("input.hwt");
             });
         </script>
         <div type="range" class="sdpi-item" id="delay_div">

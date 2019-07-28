@@ -2,6 +2,16 @@
 
 **Author's website and contact information:** [https://barraider.github.io](https://barraider.github.io)
 
+## What's new in v1.3
+* Added support for Mouse Down and Mouse Up actions. For all commands [click here](https://github.com/BarRaider/streamdeck-supermacro/blob/master/README.md#commands)
+* Added support for long key-press on the Super Macro action
+* New "Forced Keydown" mode for Sticky Keypress adds compatibility to additional games
+* SuperMacro is now in it's own category on the Strem Deck plugins list
+* Bug fixes:
+	- Sticky KeyPress and Sticky SuperMacro did not stop sending the command if you switched to another profile
+	- Custom image was not being loaded on Super Macro Toggle action
+
+
 ## What's New in v1.2
 * Added support for Mouse Scroll. Supports 4-way scrolling:
 `{{MSCROLLUP}}` = Scroll Up / `{{MSCROLLDOWN}}` = Scroll Down / `{{MSCROLLLEFT}}` = Scroll Left / `{{MSCROLLRIGHT}}` = Scroll Right
@@ -416,6 +426,14 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
             <td>{XBUTTON1}</td>
         </tr>
 		<tr>
+            <td>Mouse Left Button Down</td>
+            <td>{MLEFTDOWN}</td>
+        </tr>
+		<tr>
+            <td>Mouse Left Button Up</td>
+            <td>{MLEFTUP}</td>
+        </tr>	
+		<tr>
             <td>Mouse Right-Click</td>
             <td>{RBUTTON}</td>
         </tr>
@@ -424,8 +442,24 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
             <td>{XBUTTON2}</td>
         </tr>
 		<tr>
+            <td>Mouse Right Button Down</td>
+            <td>{MRIGHTDOWN}</td>
+        </tr>
+		<tr>
+            <td>Mouse Right Button Up</td>
+            <td>{MRIGHTUP}</td>
+        </tr>
+		<tr>
             <td>Mouse Middle Click</td>
             <td>{MBUTTON}</td>
+        </tr>
+		<tr>
+            <td>Mouse Middle Button Down</td>
+            <td>{MMIDDLEDOWN}</td>
+        </tr>
+		<tr>
+            <td>Mouse Middle Button Up</td>
+            <td>{MMIDDLEUP}</td>
         </tr>
 		<tr>
             <td>Mouse Scroll Wheel Up</td>
