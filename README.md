@@ -2,6 +2,11 @@
 
 **Author's website and contact information:** [https://barraider.github.io](https://barraider.github.io)
 
+## What's new in v1.4
+* Added support for `KeyDown` and `KeyUp` actions. You  can now control the KeyDown and Keyup length of keys yourself with the new KEYDOWN and KEYUP commands. 
+For example: Using `{{KEYDOWNSHIFT}}{{KEYDOWNp}}` will continue doing a Shift-p keypress until you run a `{{KEYUPp}}{{KEYDOWNSHIFT}}`. Works along with the `{{PAUSE}}` command too.
+* Bug fix in which the "Delay" label was not shown in certain actions.
+
 ## What's new in v1.3
 * Added support for Mouse Down and Mouse Up actions. For all commands [click here](https://github.com/BarRaider/streamdeck-supermacro/blob/master/README.md#commands)
 * Added support for long key-press on the Super Macro action
@@ -405,6 +410,14 @@ This plugin uses the [StreamDeck-Tools](https://github.com/BarRaider/streamdeck-
         <tr>
             <td>SCROLL LOCK</td>
             <td>{SCROLL}</td>
+        </tr>
+		<tr>
+            <td>KeyDown</td>
+            <td>{KeyDownXXXX} (XXXX = name of key, example {{KeyDownF1}})</td>
+        </tr>
+		<tr>
+            <td>KeyUp</td>
+            <td>{KeyUpXXXX} (XXXX = name of key, example {{KeyUpSHIFT}})</td>
         </tr>
     </tbody>
 </table>

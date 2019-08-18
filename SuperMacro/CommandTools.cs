@@ -98,7 +98,7 @@ namespace SuperMacro
             }
         }
 
-        private static string ConvertSimilarMacroCommands(string macroText)
+        internal static string ConvertSimilarMacroCommands(string macroText)
         {
             switch (macroText)
             {
