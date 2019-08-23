@@ -25,7 +25,7 @@ namespace SuperMacro
 
         #region Private Members
 
-        private InputSimulator iis = new InputSimulator();
+        private readonly InputSimulator iis = new InputSimulator();
 
         #endregion
 
