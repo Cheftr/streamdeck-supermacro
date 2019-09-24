@@ -81,10 +81,9 @@ namespace SuperMacro
             try
             {
                 string text = ConvertSimilarMacroCommands(macroText);
-                if (ExtendedMacroHandler.IsExtendedMacro(text, out string extendedData))
+                if (ExtendedMacroHandler.IsExtendedMacro(text, out string macroCommand, out string extendedData))
                 {
-                    text = text.Substring(0, text.Length - extendedData.Length);
-                    return new VirtualKeyCodeContainer(VirtualKeyCode.ZOOM, text, extendedData);
+                    return new VirtualKeyCodeContainer(VirtualKeyCode.ZOOM, macroCommand, extendedData);
                 }
 
                 VirtualKeyCode keyCode = (VirtualKeyCode)Enum.Parse(typeof(VirtualKeyCode), text, true);

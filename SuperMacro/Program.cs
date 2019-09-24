@@ -7,6 +7,7 @@ namespace SuperMacro
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
             // Uncomment this line of code to allow for debugging

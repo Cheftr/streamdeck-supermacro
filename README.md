@@ -2,41 +2,11 @@
 
 **Author's website and contact information:** [https://barraider.github.io](https://barraider.github.io)
 
-## What's new in v1.4
-* Added support for `KeyDown` and `KeyUp` actions. You  can now control the KeyDown and Keyup length of keys yourself with the new KEYDOWN and KEYUP commands. 
-For example: Using `{{KEYDOWNSHIFT}}{{KEYDOWNp}}` will continue doing a Shift-p keypress until you run a `{{KEYUPp}}{{KEYDOWNSHIFT}}`. Works along with the `{{PAUSE}}` command too.
-* Bug fix in which the "Delay" label was not shown in certain actions.
-
-## What's new in v1.3
-* Added support for Mouse Down and Mouse Up actions. For all commands [click here](https://github.com/BarRaider/streamdeck-supermacro/blob/master/README.md#commands)
-* Added support for long key-press on the Super Macro action
-* New "Forced Keydown" mode for Sticky Keypress adds compatibility to additional games
-* SuperMacro is now in it's own category on the Strem Deck plugins list
-* Bug fixes:
-	- Sticky KeyPress and Sticky SuperMacro did not stop sending the command if you switched to another profile
-	- Custom image was not being loaded on Super Macro Toggle action
-
-
-## What's New in v1.2
-* Added support for Mouse Scroll. Supports 4-way scrolling:
-`{{MSCROLLUP}}` = Scroll Up / `{{MSCROLLDOWN}}` = Scroll Down / `{{MSCROLLLEFT}}` = Scroll Left / `{{MSCROLLRIGHT}}` = Scroll Right
-* Optimized the **KeyStroke PTT** action to work great with the new Mouse Scrolls
-* Sticky Keypress is now optimized for single button features like {{alt}} or {{shift}}
-
-
-## What's New in v1.1
-- Added support for Mouse clicks:  
-  *  `{{LBUTTON}}` = Left Click / `{{RBUTTON}}` = Right Click / `{{MBUTTON}}` = Middle Click / `{{XBUTTON1}}` = Left Double-Click / `{{XBUTTON2}}` = Right Double-Click
-- Added support for moving the mouse cursor:
-  * `{{MOUSEMOVEX,Y}}` - Move the cursor by X,Y from current position
-  * `{{MOUSEPOSX,Y}}` - Move the cursor to the X,Y position on the screen - (Valid values range from 0,0 to 65535,65535)
-- 2 New Modes for Super Macro / Super Macro Toggle / Sticky Super Macro:
-  * **Delayed Keydown Mode** - Try using this mode for programs where the normal mode doesn't work (for instance OBS Studio).
-  * **Forced Macro Mode**  - Sends normal text (such as "abc") as macros (i.e {{a}}{{b}}{{c}})
-- Added support to stop a macro while running: For Super Macro and Super Macro Toggle, pressing the button again while running will stop the macro execution
-- Added support for Pause/Break button: {{BREAK}}
-- Added support for Print Screen button: {{SNAPSHOT}}
-- Improved support for escaping curly braces when not in a macro
+## What's new in v1.5
+- The long awaited ***Variable support*** has now arrived!!!
+:new: You can now get input from the user and store it in variables.
+For example: Using `{{INPUT:YourName}}Hello {{OUTPUT:YourName}}` will first ask the user for a value, store it in `YourName` and then type it after the **Hello** part. You can use this many times,  and with any different variable names.
+- SuperMacro now supports putting a `:` between the command name and value, which allows better readability of your macros. You can now type `{{PAUSE:1000}}`, `{{KEYDOWN:SHIFT}}`,`{{MOUSEMOVE:1,1}}` etc.
 
 ## Current functionality
 ### 5 Plugins built into one:

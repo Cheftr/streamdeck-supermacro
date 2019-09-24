@@ -40,7 +40,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.6.6\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\..\..\DotNet\StreamDeck\packages\NLog.4.6.7\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="streamdeck-client-csharp, Version=4.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\streamdeck-client-csharp.4.1.1\lib\netstandard2.0\streamdeck-client-csharp.dll</HintPath>
@@ -59,6 +59,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,6 +70,9 @@
   <ItemGroup>
     <Compile Include="CommandTools.cs" />
     <Compile Include="ExtendedMacroHandler.cs" />
+    <Compile Include="InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="KeystrokeBase.cs" />
     <Compile Include="KeystrokePTT.cs" />
     <Compile Include="MacroSettingsBase.cs" />
@@ -201,6 +205,11 @@
       <Project>{3549cd6f-80f8-450f-b99e-cf0a736b1f2a}</Project>
       <Name>WindowsInput</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
